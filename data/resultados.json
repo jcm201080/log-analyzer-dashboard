@@ -1,0 +1,12 @@
+{
+  "total_intentos": 185,
+  "hosts": [
+    { "host": "150.183.249.110", "intentos": 80, "gravedad": "alta" },
+    { "host": "207.243.167.114", "intentos": 23, "gravedad": "media" },
+    { "host": "60.30.224.116", "intentos": 20, "gravedad": "media" }
+  ],
+  "usuarios": [
+    { "usuario": "root", "intentos": 45 },
+    { "usuario": "admin", "intentos": 32 }
+  ]
+}

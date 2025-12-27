@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard de Seguridad{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<section class="dashboard-header">
+  <h1>🔐 Dashboard de Seguridad</h1>
+  <p>Análisis automático de registros de seguridad</p>
+</section>
+
+<div class="dashboard-grid">
+
+  <!-- RESUMEN -->
+  <section class="card summary">
+    <h2>📊 Resumen general</h2>
+    <p id="total"></p>
+  </section>
+
+  <!-- HOSTS -->
+  <section class="card">
+    <h2>🌍 Hosts más agresivos</h2>
+    <ul id="rhosts" class="list"></ul>
+  </section>
+
+  <!-- USUARIOS -->
+  <section class="card">
+    <h2>👤 Usuarios más atacados</h2>
+    <ul id="users" class="list"></ul>
+  </section>
+
+  <!-- GRÁFICOS -->
+  <section class="card">
+    <h2>📊 Top 5 Hosts más agresivos</h2>
+    <canvas id="hostsChart"></canvas>
+  </section>
+
+  <section class="card">
+    <h2>📊 Usuarios más atacados</h2>
+    <canvas id="usersChart"></canvas>
+  </section>
+
+</div>
+
+{% endblock %}

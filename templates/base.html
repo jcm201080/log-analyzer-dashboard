@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+
+    <!-- Estilos base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles_cabecera.css') }}">
+
+    <title>{% block title %}Panel de Seguridad{% endblock %}</title>
+    {% endblock %}
+</head>
+
+<body>
+    <div class="contenedor-grid">
+
+        <!-- ================= SIDEBAR ================= -->
+        <nav class="sidebar">
+            <div class="logo-container">
+                <img class="logo" src="{{ url_for('static', filename='img/foto4.jpeg') }}" alt="Logo de la aplicación">
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li><a href="{{ url_for('box') }}">Box</a></li>
+                <li><a href="{{ url_for('registro') }}">Informe</a></li>
+                <li><a href="{{ url_for('dashboard.dashboard_view') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('usuarios') }}">Usuarios</a></li>
+                <li><a href="{{ url_for('descargar') }}">Descargar Registros</a></li>
+                <hr>
+
+                {% if session.get("user") %}
+                <li class="user-info">
+                    👤 {{ session.get("user") }}
+                </li>
+                <li>
+                    <a href="{{ url_for('auth.logout') }}">🚪 Cerrar sesión</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{{ url_for('auth.login') }}">🔐 Iniciar sesión</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <!-- ================= CONTENIDO ================= -->
+        <main class="content-area">
+            {% block content %}
+            <!-- Contenido específico de cada página -->
+            {% endblock %}
+        </main>
+
+        <!-- ================= FOOTER ================= -->
+        <footer class="app-footer">
+            {% block footer %}
+            <p>&copy; 2025 Panel de Seguridad. Todos los derechos reservados.</p>
+            <p>
+                Contacto:
+                <a href="mailto:jesuscastanocedeco@gmail.com">
+                    jesuscastanocedeco@gmail.com
+                </a>
+            </p>
+            {% endblock %}
+        </footer>
+
+    </div>
+</body>
+
+</html>
