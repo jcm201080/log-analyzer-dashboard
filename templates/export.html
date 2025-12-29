@@ -4,7 +4,7 @@
 
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/export.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -50,14 +50,18 @@
   </p>
 
   <div class="export-buttons">
-    <button class="btn-primary" disabled>
-      Exportar CSV (pendiente)
-    </button>
-
-    <button class="btn-secondary" disabled>
-      Exportar JSON (pendiente)
-    </button>
+    <a href="{{ url_for('export.export_csv') }}" class="btn-primary">
+      Exportar CSV
+    </a>
   </div>
+  <br>
+
+  <div class="export-buttons">
+    <a href="{{ url_for('export.export_json') }}" class="btn-secondary">
+      Exportar JSON
+    </a>
+  </div>
+
 
   <p class="hint">
     ⚠️ La funcionalidad de descarga será habilitada en la siguiente fase del proyecto.

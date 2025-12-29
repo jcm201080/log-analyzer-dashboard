@@ -3,3 +3,4 @@ __pycache__/
 .env
 venv/
 blocklist.txt
+data/geoip/

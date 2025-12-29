@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle del Host{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/host.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>🔎 Detalle del Host</h1>
+  <p>Análisis detallado de la dirección IP seleccionada</p>
+</section>
+
+{% if error %}
+<section class="card">
+  <p>{{ error }}</p>
+  <a href="{{ url_for('hosts.hosts') }}" class="btn-link">← Volver</a>
+</section>
+{% else %}
+
+<section class="card">
+  <h2>📌 Información general</h2>
+
+  <table class="data-table">
+    <tr>
+      <th>IP / Host</th>
+      <td>{{ host.ip }}</td>
+    </tr>
+    <tr>
+      <th>País</th>
+      <td>{{ host.country }}</td>
+    </tr>
+    <tr>
+      <th>Región</th>
+      <td>{{ host.region }}</td>
+    </tr>
+    <tr>
+      <th>Ciudad</th>
+      <td>{{ host.city }}</td>
+    </tr>
+    <tr>
+      <th>Intentos</th>
+      <td>{{ host.intentos }}</td>
+    </tr>
+    <tr>
+      <th>Gravedad</th>
+      <td>
+        {% if host.gravedad == "Alta" %}
+          <span class="badge danger">Alta</span>
+        {% elif host.gravedad == "Media" %}
+          <span class="badge warning">Media</span>
+        {% else %}
+          <span class="badge ok">Baja</span>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
+</section>
+
+<section class="card">
+  <p>
+    Este host ha sido identificado como origen de actividad sospechosa
+    según el análisis automático de registros de seguridad.
+  </p>
+
+  <a href="{{ url_for('hosts.hosts') }}" class="btn-link">
+    ← Volver al listado
+  </a>
+</section>
+
+{% endif %}
+
+{% endblock %}

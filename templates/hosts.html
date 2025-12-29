@@ -4,7 +4,7 @@
 
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/host.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -32,10 +32,12 @@
 <section class="card">
   <h2>📋 Hosts detectados</h2>
 
-  <table class="data-table">
+  <table class="data-table sticky">
     <thead>
       <tr>
         <th>IP</th>
+        <th>País</th>
+        <th>Ciudad</th>
         <th>Intentos</th>
         <th>Gravedad</th>
         <th>Acciones</th>
@@ -45,6 +47,8 @@
       {% for host in hosts %}
       <tr>
         <td>{{ host.ip }}</td>
+        <td>{{ host.country }}</td>
+        <td>{{ host.city }}</td>
         <td>{{ host.intentos }}</td>
         <td>
           {% if host.intentos > 20 %}
@@ -56,7 +60,7 @@
           {% endif %}
         </td>
         <td>
-          <a href="#" class="btn-small">Detalle</a>
+          <a href="{{ url_for('hosts.host_detail', ip=host.ip) }}" class="btn-small btn-link">Detalle</a>
         </td>
       </tr>
       {% endfor %}

@@ -33,6 +33,7 @@
                 {# <li><a href="{{ url_for('usuarios') }}">Usuarios</a></li>
                 <li><a href="{{ url_for('descargar') }}">Descargar Registros</a></li>  #}
                 <li><a href="{{ url_for('hosts.hosts') }}">Hosts</a></li>
+                <li><a href="{{ url_for('export.export') }}">Exportación</a></li>
                 <hr>
 
                 {% if session.get("user") %}
