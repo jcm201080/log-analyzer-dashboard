@@ -26,9 +26,16 @@
 
   <!-- HOSTS -->
   <section class="card">
-    <h2>🌍 Hosts más agresivos</h2>
+    <div class="card-header">
+      <h2>🌍 Hosts más agresivos</h2>
+      <a href="{{ url_for('hosts.hosts') }}" class="link-detail">
+        Ver detalle →
+      </a>
+    </div>
+
     <ul id="rhosts" class="list"></ul>
   </section>
+
 
   <!-- USUARIOS -->
   <section class="card">

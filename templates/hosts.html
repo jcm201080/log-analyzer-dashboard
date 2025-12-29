@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Hosts Atacantes{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>🌍 Hosts / IPs Atacantes</h1>
+  <p>Listado detallado de direcciones IP detectadas con actividad sospechosa</p>
+</section>
+
+<!-- FILTROS -->
+<section class="card filters">
+  <h2>🕒 Filtro temporal</h2>
+  <form method="get">
+    <select name="range">
+      <option value="1h">Última hora</option>
+      <option value="24h" selected>Últimas 24 horas</option>
+      <option value="7d">Últimos 7 días</option>
+      <option value="all">Todo</option>
+    </select>
+    <button type="submit">Aplicar</button>
+  </form>
+</section>
+
+<!-- TABLA DE HOSTS -->
+<section class="card">
+  <h2>📋 Hosts detectados</h2>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>IP</th>
+        <th>Intentos</th>
+        <th>Gravedad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for host in hosts %}
+      <tr>
+        <td>{{ host.ip }}</td>
+        <td>{{ host.intentos }}</td>
+        <td>
+          {% if host.intentos > 20 %}
+            <span class="badge danger">Alta</span>
+          {% elif host.intentos > 10 %}
+            <span class="badge warning">Media</span>
+          {% else %}
+            <span class="badge ok">Baja</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="#" class="btn-small">Detalle</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- EXPORTACIÓN -->
+<!-- EXPORTACIÓN -->
+<section class="card actions">
+  <h2>⬇ Exportación de inteligencia</h2>
+  <p>Descargar listado de IPs sospechosas para su uso en sistemas de bloqueo.</p>
+
+  <button class="btn-primary" disabled>Exportar CSV (pendiente)</button>
+  <button class="btn-secondary" disabled>Exportar JSON (pendiente)</button>
+</section>
+
+
+{% endblock %}

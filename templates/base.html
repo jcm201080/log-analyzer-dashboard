@@ -27,11 +27,12 @@
 
             <ul class="nav-menu">
                 <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li><a href="{{ url_for('box') }}">Box</a></li>
-                <li><a href="{{ url_for('registro') }}">Informe</a></li>
+                {# <li><a href="{{ url_for('box') }}">Box</a></li> #}
+                {# <li><a href="{{ url_for('registro') }}">Informe</a></li> #}
                 <li><a href="{{ url_for('dashboard.dashboard_view') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('usuarios') }}">Usuarios</a></li>
-                <li><a href="{{ url_for('descargar') }}">Descargar Registros</a></li>
+                {# <li><a href="{{ url_for('usuarios') }}">Usuarios</a></li>
+                <li><a href="{{ url_for('descargar') }}">Descargar Registros</a></li>  #}
+                <li><a href="{{ url_for('hosts.hosts') }}">Hosts</a></li>
                 <hr>
 
                 {% if session.get("user") %}

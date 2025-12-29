@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Exportación de Inteligencia{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>⬇ Exportación de Inteligencia</h1>
+  <p>
+    Descarga de direcciones IP sospechosas para su uso en sistemas de seguridad
+    como firewalls, IDS o herramientas de análisis externo.
+  </p>
+</section>
+
+<!-- DESCRIPCIÓN -->
+<section class="card">
+  <h2>📦 ¿Qué se exporta?</h2>
+  <ul class="list">
+    <li>Direcciones IP identificadas como sospechosas</li>
+    <li>Número de intentos detectados</li>
+    <li>Nivel de riesgo estimado</li>
+    <li>Información preparada para su uso en sistemas externos</li>
+  </ul>
+</section>
+
+<!-- FILTRO TEMPORAL -->
+<section class="card filters">
+  <h2>🕒 Filtro temporal</h2>
+  <form method="get">
+    <select name="range">
+      <option value="1h">Última hora</option>
+      <option value="24h" selected>Últimas 24 horas</option>
+      <option value="7d">Últimos 7 días</option>
+      <option value="all">Todo</option>
+    </select>
+    <button type="submit">Aplicar</button>
+  </form>
+</section>
+
+<!-- EXPORTACIÓN -->
+<section class="card actions">
+  <h2>⬇ Formatos disponibles</h2>
+  <p>
+    Selecciona el formato de exportación según el sistema destino.
+  </p>
+
+  <div class="export-buttons">
+    <button class="btn-primary" disabled>
+      Exportar CSV (pendiente)
+    </button>
+
+    <button class="btn-secondary" disabled>
+      Exportar JSON (pendiente)
+    </button>
+  </div>
+
+  <p class="hint">
+    ⚠️ La funcionalidad de descarga será habilitada en la siguiente fase del proyecto.
+  </p>
+</section>
+
+{% endblock %}

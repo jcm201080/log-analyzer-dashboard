@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from routes.dashboard import dashboard_bp
 from routes.auth import auth_bp   # 👈 login
+from routes.hosts import hosts_bp  # 👈 nueva ruta hosts
 # ---------------------------------
 
 app = Flask(__name__)
@@ -32,6 +33,11 @@ def usuarios():
 @app.route("/descargar")
 def descargar():
     return "Descarga (pendiente)"
+
+
+
+app.register_blueprint(hosts_bp)
+
 
 # ------------------------
 if __name__ == "__main__":
