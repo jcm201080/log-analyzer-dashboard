@@ -1,37 +1,47 @@
-/* ===========================
-   HOME / INDEX
-=========================== */
+/* === HOME / LANDING ================================= */
+
 .home-container {
-  height: 100%;
+  min-height: calc(100vh - 80px); /* ajusta según tu header */
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 40px 20px;
 }
 
 .home-box {
-  background: #ffffff;
-  padding: 50px 60px;
-  border-radius: 12px;
+  max-width: 720px;
+  padding: 50px 40px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  max-width: 700px;
+
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  border-radius: 16px;
+  border: 1px solid rgba(0, 255, 200, 0.15);
+  box-shadow: 0 0 30px rgba(0, 255, 200, 0.15);
 }
 
 .home-box h1 {
   font-size: 2.4rem;
-  color: #1e1e2f;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+  color: #00ffc8;
+  letter-spacing: 1px;
 }
 
-.home-box .subtitle {
-  font-size: 1.2rem;
+.subtitle {
+  font-size: 1.1rem;
   font-weight: 500;
-  color: #555;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  color: #cceff7;
 }
 
-.home-box .description {
+.description {
   font-size: 1rem;
-  color: #666;
   line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.home-page .content-area {
+  padding: 0;
 }

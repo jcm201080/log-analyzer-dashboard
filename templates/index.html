@@ -1,17 +1,12 @@
-{% extends "base.html" %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-{% endblock %}
-
-
-{% block title %}Inicio | JCM Ciberseguridad{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/index.css') }}"
+/>
+{% endblock %} {% block title %}Inicio | JCM Ciberseguridad{% endblock %} {%
+block content %}
 
 <section class="home-container">
-
   <div class="home-box">
     <h1>🔐 JCM CIBERSEGURIDAD</h1>
     <p class="subtitle">
@@ -19,11 +14,10 @@
     </p>
 
     <p class="description">
-      Detección de accesos sospechosos, análisis de amenazas
-      y apoyo a la toma de decisiones en entornos SOC.
+      Detección de accesos sospechosos, análisis de amenazas y apoyo a la toma
+      de decisiones en entornos SOC.
     </p>
   </div>
-
 </section>
 
 {% endblock %}

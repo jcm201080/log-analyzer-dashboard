@@ -1,68 +1,66 @@
-{% extends "base.html" %}
-
-{% block title %}Dashboard de Seguridad{% endblock %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% extends "base.html" %} {% block title %}Dashboard de Seguridad{% endblock %}
+{% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/dashboard.css') }}"
+/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
-{% endblock %}
-
-{% block content %}
+<script
+  src="{{ url_for('static', filename='js/dashboard.js') }}"
+  defer
+></script>
+{% endblock %} {% block content %}
 
 <section class="dashboard-header">
   <h1>🔐 Dashboard de Seguridad</h1>
   <p>Análisis automático de registros de seguridad</p>
 </section>
 
-<div class="dashboard-grid">
-
-  <!-- RESUMEN -->
-  <section class="card summary">
+<section class="dashboard-grid">
+  <!-- 1️⃣ RESUMEN GENERAL -->
+  <a
+    href="{{ url_for('dashboard.dashboard_view') }}"
+    class="card small summary"
+  >
     <h2>📊 Resumen general</h2>
-    <p id="total"></p>
-  </section>
+    <p>Total de intentos detectados</p>
+    <p id="total" class="big-number"></p>
+  </a>
 
-  <!-- HOSTS -->
-  <section class="card">
+  <!-- 2️⃣ USUARIOS MÁS ATACADOS -->
+  <a href="{{ url_for('hosts.hosts') }}" class="card small">
+    <h2>👤 Usuarios más atacados</h2>
+    <ul id="users" class="list preview"></ul>
+  </a>
+
+  <!-- 3️⃣ EXPORTACIÓN -->
+  <a href="{{ url_for('export.export') }}" class="card small export">
+    <h2>⬇ Exportación</h2>
+    <p>Descarga de informes e inteligencia</p>
+  </a>
+
+  <!-- 4️⃣ HOSTS MÁS AGRESIVOS (CARD GRANDE) -->
+  <section class="card wide">
     <div class="card-header">
       <h2>🌍 Hosts más agresivos</h2>
       <a href="{{ url_for('hosts.hosts') }}" class="link-detail">
         Ver detalle →
       </a>
     </div>
-
     <ul id="rhosts" class="list"></ul>
   </section>
 
-  <!-- Exportación -->
-  <section class="card">
-    <div class="card-header">
-      <h2>⬇ Exportación de Inteligencia</h2>
-      <a href="{{ url_for('export.export') }}" class="link-detail">
-        Ver detalle →
-      </a>
-    </div>
-  </section>
-
-  <!-- USUARIOS -->
-  <section class="card">
-    <h2>👤 Usuarios más atacados</h2>
-    <ul id="users" class="list"></ul>
-  </section>
-
-  <!-- GRÁFICOS -->
-  <section class="card">
-    <h2>📊 Top 5 Hosts más agresivos</h2>
+  <!-- 5️⃣ GRÁFICO HOSTS -->
+  <a href="{{ url_for('graficas.graficas') }}" class="card chart">
+    <h2>📈 Top 5 Hosts más agresivos</h2>
     <canvas id="hostsChart"></canvas>
-  </section>
+  </a>
 
-  <section class="card">
-    <h2>📊 Usuarios más atacados</h2>
+  <!-- 6️⃣ GRÁFICO USUARIOS -->
+  <a href="{{ url_for('graficas.graficas') }}" class="card chart">
+    <h2>📉 Usuarios más atacados</h2>
     <canvas id="usersChart"></canvas>
-  </section>
-
-</div>
+  </a>
+</section>
 
 {% endblock %}

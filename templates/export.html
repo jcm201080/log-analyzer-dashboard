@@ -1,13 +1,10 @@
-{% extends "base.html" %}
-
-{% block title %}Exportación de Inteligencia{% endblock %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/export.css') }}">
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Exportación de Inteligencia{%
+endblock %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/export.css') }}"
+/>
+{% endblock %} {% block content %}
 
 <section class="page-header">
   <h1>⬇ Exportación de Inteligencia</h1>
@@ -45,16 +42,14 @@
 <!-- EXPORTACIÓN -->
 <section class="card actions">
   <h2>⬇ Formatos disponibles</h2>
-  <p>
-    Selecciona el formato de exportación según el sistema destino.
-  </p>
+  <p>Selecciona el formato de exportación según el sistema destino.</p>
 
   <div class="export-buttons">
     <a href="{{ url_for('export.export_csv') }}" class="btn-primary">
       Exportar CSV
     </a>
   </div>
-  <br>
+  <br />
 
   <div class="export-buttons">
     <a href="{{ url_for('export.export_json') }}" class="btn-secondary">
@@ -62,9 +57,9 @@
     </a>
   </div>
 
-
   <p class="hint">
-    ⚠️ La funcionalidad de descarga será habilitada en la siguiente fase del proyecto.
+    ⚠️ La funcionalidad de descarga será habilitada en la siguiente fase del
+    proyecto.
   </p>
 </section>
 

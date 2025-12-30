@@ -1,28 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Login · JCM Ciberseguridad</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login · JCM Ciberseguridad</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/login.css') }}"
+    />
+  </head>
+  <body>
+    <div class="login-container">
+      <h1>🔐 JCM Ciberseguridad</h1>
+      <p>Acceso al panel de seguridad</p>
 
-  <div class="login-container">
-    <h1>🔐 JCM Ciberseguridad</h1>
-    <p>Acceso al panel de seguridad</p>
+      <form method="post" class="login-form">
+        <input type="text" name="username" placeholder="Usuario" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          required
+        />
+        <button type="submit">Entrar</button>
+      </form>
 
-    <form method="post" class="login-form">
-      <input type="text" name="username" placeholder="Usuario" required>
-      <input type="password" name="password" placeholder="Contraseña" required>
-      <button type="submit">Entrar</button>
-    </form>
-
-    {% if error %}
+      {% if error %}
       <p class="error">{{ error }}</p>
-    {% endif %}
-  </div>
-
-</body>
+      {% endif %}
+    </div>
+  </body>
 </html>
-
-

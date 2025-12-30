@@ -3,6 +3,7 @@ from routes.dashboard import dashboard_bp
 from routes.auth import auth_bp   # 👈 login
 from routes.hosts import hosts_bp  # 👈 nueva ruta hosts
 from routes.export import export_bp  # 👈 nueva ruta export
+from routes.graficas import graficas_bp
 # ---------------------------------
 
 app = Flask(__name__)
@@ -40,6 +41,8 @@ def descargar():
 app.register_blueprint(hosts_bp)
 
 app.register_blueprint(export_bp)
+
+app.register_blueprint(graficas_bp)
 
 # ------------------------
 if __name__ == "__main__":

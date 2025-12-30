@@ -1,0 +1,18 @@
+/* Reutilizamos el grid del dashboard */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+/* Todas las gráficas a media pantalla */
+.card.chart {
+  grid-column: span 6;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .card.chart {
+    grid-column: span 12;
+  }
+}

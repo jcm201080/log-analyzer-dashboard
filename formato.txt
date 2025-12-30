@@ -1,0 +1,39 @@
+📌 Proceso de control de calidad del código
+
+Ejecutamos npm run check
+
+
+
+Este proyecto utiliza un flujo automático de control de calidad para el código JavaScript del frontend, con el objetivo de detectar errores antes del despliegue y mantener un estilo consistente.
+
+El proceso se compone de tres pasos ejecutados mediante npm:
+
+Análisis de errores (Linting)
+
+npm run lint
+
+
+Analiza el código JavaScript y detecta errores de sintaxis, variables no definidas o malas prácticas.
+
+Corrección automática
+
+npm run lint:fix
+
+
+Corrige automáticamente los errores simples detectados por ESLint, como espacios, variables no utilizadas o formato básico.
+
+Formateo del código
+
+npm run format
+
+
+Aplica un formato uniforme al código HTML, CSS y JavaScript usando Prettier.
+
+
+--En package.json añadimos check para hacerlo más rapido y automático
+"scripts": {
+  "lint": "eslint static",
+  "lint:fix": "eslint static --fix",
+  "format": "prettier \"static/**/*.{js,css,html}\" \"templates/**/*.html\" --write",
+  "check": "npm run lint && npm run lint:fix && npm run format"
+}

@@ -1,13 +1,10 @@
-{% extends "base.html" %}
-
-{% block title %}Hosts Atacantes{% endblock %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/host.css') }}">
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Hosts Atacantes{% endblock %} {%
+block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/host.css') }}"
+/>
+{% endblock %} {% block content %}
 
 <section class="page-header">
   <h1>🌍 Hosts / IPs Atacantes</h1>
@@ -52,15 +49,19 @@
         <td>{{ host.intentos }}</td>
         <td>
           {% if host.intentos > 20 %}
-            <span class="badge danger">Alta</span>
+          <span class="badge danger">Alta</span>
           {% elif host.intentos > 10 %}
-            <span class="badge warning">Media</span>
+          <span class="badge warning">Media</span>
           {% else %}
-            <span class="badge ok">Baja</span>
+          <span class="badge ok">Baja</span>
           {% endif %}
         </td>
         <td>
-          <a href="{{ url_for('hosts.host_detail', ip=host.ip) }}" class="btn-small btn-link">Detalle</a>
+          <a
+            href="{{ url_for('hosts.host_detail', ip=host.ip) }}"
+            class="btn-small btn-link"
+            >Detalle</a
+          >
         </td>
       </tr>
       {% endfor %}
@@ -72,11 +73,12 @@
 <!-- EXPORTACIÓN -->
 <section class="card actions">
   <h2>⬇ Exportación de inteligencia</h2>
-  <p>Descargar listado de IPs sospechosas para su uso en sistemas de bloqueo.</p>
+  <p>
+    Descargar listado de IPs sospechosas para su uso en sistemas de bloqueo.
+  </p>
 
   <button class="btn-primary" disabled>Exportar CSV (pendiente)</button>
   <button class="btn-secondary" disabled>Exportar JSON (pendiente)</button>
 </section>
-
 
 {% endblock %}

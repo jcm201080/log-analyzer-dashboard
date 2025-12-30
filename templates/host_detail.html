@@ -1,13 +1,10 @@
-{% extends "base.html" %}
-
-{% block title %}Detalle del Host{% endblock %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/host.css') }}">
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Detalle del Host{% endblock %} {%
+block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/host.css') }}"
+/>
+{% endblock %} {% block content %}
 
 <section class="page-header">
   <h1>🔎 Detalle del Host</h1>
@@ -49,11 +46,11 @@
       <th>Gravedad</th>
       <td>
         {% if host.gravedad == "Alta" %}
-          <span class="badge danger">Alta</span>
+        <span class="badge danger">Alta</span>
         {% elif host.gravedad == "Media" %}
-          <span class="badge warning">Media</span>
+        <span class="badge warning">Media</span>
         {% else %}
-          <span class="badge ok">Baja</span>
+        <span class="badge ok">Baja</span>
         {% endif %}
       </td>
     </tr>
@@ -62,8 +59,8 @@
 
 <section class="card">
   <p>
-    Este host ha sido identificado como origen de actividad sospechosa
-    según el análisis automático de registros de seguridad.
+    Este host ha sido identificado como origen de actividad sospechosa según el
+    análisis automático de registros de seguridad.
   </p>
 
   <a href="{{ url_for('hosts.hosts') }}" class="btn-link">
@@ -71,6 +68,4 @@
   </a>
 </section>
 
-{% endif %}
-
-{% endblock %}
+{% endif %} {% endblock %}

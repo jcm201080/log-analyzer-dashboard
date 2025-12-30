@@ -1,0 +1,31 @@
+{
+  "name": "log_analyzer",
+  "version": "1.0.0",
+  "description": "Se propone el desarrollo de un analizador automático de registros de seguridad basado en Python, capaz de procesar grandes volúmenes de logs de forma eficiente.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests yet\"",
+    "lint": "eslint static",
+    "lint:fix": "eslint static --fix",
+    "format": "prettier \"static/**/*.{js,css,html}\" \"templates/**/*.html\" --write",
+    "check": "npm run lint && npm run lint:fix && npm run format"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcm201080/log-analyzer-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcm201080/log-analyzer-dashboard/issues"
+  },
+  "homepage": "https://github.com/jcm201080/log-analyzer-dashboard#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "prettier": "^3.7.4"
+  }
+}

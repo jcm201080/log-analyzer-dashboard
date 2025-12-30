@@ -14,7 +14,12 @@ def dashboard_view():
 def dashboard_data():
     try:
         data = analyze()
+
+        # Limitar SOLO para el dashboard
+        data["hosts"] = data.get("hosts", [])[:15]
+
         return jsonify(data)
+
     except Exception as e:
         return jsonify({
             "total_intentos": 0,
@@ -22,3 +27,4 @@ def dashboard_data():
             "usuarios": [],
             "error": str(e)
         }), 500
+

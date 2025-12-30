@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block title %}Gráficas | JCM Ciberseguridad{%
+endblock %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/graficas.css') }}"
+/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/graficas.js') }}" defer></script>
+{% endblock %} {% block content %}
+<section class="dashboard-header">
+  <h1>📊 Gráficas de Seguridad</h1>
+  <p>Visualización de patrones y amenazas detectadas</p>
+</section>
+
+<section class="dashboard-grid">
+  <!-- GRÁFICA 1 -->
+  <div class="card chart">
+    <h2>🌍 Hosts más agresivos</h2>
+    <canvas id="hostsChart"></canvas>
+  </div>
+
+  <!-- GRÁFICA 2 -->
+  <div class="card chart">
+    <h2>👤 Usuarios más atacados</h2>
+    <canvas id="usersChart"></canvas>
+  </div>
+
+  <!-- GRÁFICA 3 -->
+  <div class="card chart">
+    <h2>🌍 Origen estimado de ataques</h2>
+    <canvas id="countriesChart"></canvas>
+  </div>
+</section>
+
+{% endblock %}
