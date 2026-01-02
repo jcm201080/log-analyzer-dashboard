@@ -9,6 +9,9 @@ endblock %} {% block head %} {{ super() }}
 {% endblock %} {% block content %}
 <section class="dashboard-header">
   <h1>📊 Gráficas de Seguridad</h1>
+  <p class="log-info">
+      📄 Archivo analizado: <strong>{{ log_name }}</strong>
+    </p>
   <p>Visualización de patrones y amenazas detectadas</p>
 </section>
 

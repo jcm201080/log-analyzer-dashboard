@@ -16,6 +16,9 @@ endblock %} {% block head %} {{ super() }}
 
 <!-- DESCRIPCIÓN -->
 <section class="card">
+  <p class="log-info">
+    📄 Archivo analizado: <strong>{{ log_name }}</strong>
+  </p>
   <h2>📦 ¿Qué se exporta?</h2>
   <ul class="list">
     <li>Direcciones IP identificadas como sospechosas</li>

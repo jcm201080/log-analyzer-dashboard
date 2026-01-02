@@ -14,6 +14,15 @@
 <section class="dashboard-header">
   <h1>🔐 Dashboard de Seguridad</h1>
   <p>Análisis automático de registros de seguridad</p>
+  <p
+    id="date-warning"
+    class="warning"
+    style="display: none; margin-top: 8px;"
+  >
+    ⚠️ Este log no incluye fechas completas (año/zona horaria).
+    El filtrado temporal es orientativo.
+  </p>
+
 </section>
 
 <section class="dashboard-grid">
@@ -23,6 +32,9 @@
     class="card small summary"
   >
     <h2>📊 Resumen general</h2>
+    <p class="log-info">
+      📄 Archivo analizado: <strong id="log-name">—</strong>
+    </p>
     <p>Total de intentos detectados</p>
     <p id="total" class="big-number"></p>
   </a>

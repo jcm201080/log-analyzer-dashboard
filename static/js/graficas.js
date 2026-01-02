@@ -1,5 +1,9 @@
 /* global Chart */
 
+let hostsChartInstance = null;
+let usersChartInstance = null;
+let countriesChartInstance = null;
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch("/api/dashboard")
     .then((res) => res.json())
@@ -22,9 +26,11 @@ function crearGraficoHosts(hosts) {
   const ctx = document.getElementById("hostsChart");
   if (!ctx) return;
 
+  if (hostsChartInstance) hostsChartInstance.destroy();
+
   const top10 = hosts.slice(0, 10);
 
-  new Chart(ctx, {
+  hostsChartInstance = new Chart(ctx, {
     type: "bar",
     data: {
       labels: top10.map((h) => h.host),
@@ -49,9 +55,11 @@ function crearGraficoUsuarios(usuarios) {
   const ctx = document.getElementById("usersChart");
   if (!ctx) return;
 
+  if (usersChartInstance) usersChartInstance.destroy();
+
   const top10 = usuarios.slice(0, 10);
 
-  new Chart(ctx, {
+  usersChartInstance = new Chart(ctx, {
     type: "doughnut",
     data: {
       labels: top10.map((u) => u.usuario),
@@ -77,15 +85,16 @@ function crearGraficoUsuarios(usuarios) {
 }
 
 // =========================
-// GRÁFICO POR PAÍS (estimado)
+// GRÁFICO POR PAÍS (heurístico)
 // =========================
 function crearGraficoPaises(hosts) {
   const ctx = document.getElementById("countriesChart");
   if (!ctx) return;
 
+  if (countriesChartInstance) countriesChartInstance.destroy();
+
   const conteo = {};
 
-  // 1️⃣ Clasificar hosts por país (heurística simple)
   hosts.forEach((h) => {
     const host = h.host.toLowerCase();
     let pais = "Otros";
@@ -95,20 +104,19 @@ function crearGraficoPaises(hosts) {
     else if (host.endsWith(".br")) pais = "Brasil";
     else if (host.endsWith(".net") || host.endsWith(".com"))
       pais = "Internacional";
-    else if (/^\d+\.\d+\.\d+\.\d+$/.test(host)) pais = "IP desconocida";
+    else if (/^\d+\.\d+\.\d+\.\d+$/.test(host))
+      pais = "IP desconocida";
 
     conteo[pais] = (conteo[pais] || 0) + h.intentos;
   });
 
-  // 2️⃣ Eliminar países sin datos
-  const labels = Object.keys(conteo).filter((p) => conteo[p] > 0);
+  const labels = Object.keys(conteo);
   const values = labels.map((p) => conteo[p]);
 
-  // 3️⃣ Crear la gráfica (UNA sola vez)
-  new Chart(ctx, {
+  countriesChartInstance = new Chart(ctx, {
     type: "doughnut",
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
           data: values,

@@ -1,4 +1,5 @@
 import pandas as pd
+from pathlib import Path
 from processing.parser import parse_log
 
 
@@ -11,15 +12,44 @@ def calcular_gravedad(intentos):
         return "baja"      # 🟢
 
 
-def analyze():
-    data = parse_log()
+def analyze(log_path=None):
+    """
+    Analiza el log activo.
+    Si no se indica ruta, se usa el log por defecto del parser.
+    """
+
+    # =========================
+    # PARSEAR LOG
+    # =========================
+    data = parse_log(log_path)
     df = pd.DataFrame(data)
 
+    # =========================
+    # NOMBRE DEL LOG
+    # =========================
+    if log_path:
+        log_name = Path(log_path).name
+    else:
+        log_name = "OpenSSH_2k.log"
+
+    # =========================
+    # FECHAS INCOMPLETAS
+    # =========================
+    fechas_incompletas = False
+    if not df.empty and "date" in df.columns:
+        # Los logs no incluyen año → incompletas
+        fechas_incompletas = True
+
+    # =========================
+    # DATAFRAME VACÍO
+    # =========================
     if df.empty:
         return {
             "total_intentos": 0,
             "hosts": [],
-            "usuarios": []
+            "usuarios": [],
+            "log_name": log_name,
+            "fechas_incompletas": fechas_incompletas
         }
 
     # =========================
@@ -36,7 +66,7 @@ def analyze():
         })
 
     # =========================
-    # USUARIOS (FORMATO CORRECTO)
+    # USUARIOS
     # =========================
     users_count = df["user"].value_counts()
 
@@ -52,10 +82,15 @@ def analyze():
     # =========================
     export_blocklist(rhost_info)
 
+    # =========================
+    # RESULTADO FINAL
+    # =========================
     return {
         "total_intentos": int(len(df)),
         "hosts": rhost_info,
-        "usuarios": usuarios
+        "usuarios": usuarios,
+        "log_name": log_name,
+        "fechas_incompletas": fechas_incompletas
     }
 
 

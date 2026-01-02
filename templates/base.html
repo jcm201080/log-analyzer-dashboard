@@ -51,6 +51,7 @@
           <li><a href="{{ url_for('hosts.hosts') }}">Hosts</a></li>
           <li><a href="{{ url_for('export.export') }}">Exportación</a></li>
           <li><a href="{{ url_for('graficas.graficas') }}">Gráficas</a></li>
+          <li><a href="{{ url_for('upload.upload_log') }}">Subir log</a></li>
           <hr />
 
           {% if session.get("user") %}
@@ -79,8 +80,8 @@
         <p>&copy; 2025 Panel de Seguridad. Todos los derechos reservados.</p>
         <p>
           Contacto:
-          <a href="mailto:jesuscastanocedeco@gmail.com">
-            jesuscastanocedeco@gmail.com
+          <a href="mailto:jcm201080@gmail.com">
+            jcm201080@gmail.com
           </a>
         </p>
         {% endblock %}

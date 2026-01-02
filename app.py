@@ -4,6 +4,12 @@ from routes.auth import auth_bp   # 👈 login
 from routes.hosts import hosts_bp  # 👈 nueva ruta hosts
 from routes.export import export_bp  # 👈 nueva ruta export
 from routes.graficas import graficas_bp
+from routes.upload import upload_bp  # 👈 nueva ruta upload
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Cargar variables de entorno desde .env
+print("SECRET_KEY:", os.getenv("SECRET_KEY"))  # Verificar carga de variable de entorno
 # ---------------------------------
 
 app = Flask(__name__)
@@ -43,6 +49,8 @@ app.register_blueprint(hosts_bp)
 app.register_blueprint(export_bp)
 
 app.register_blueprint(graficas_bp)
+
+app.register_blueprint(upload_bp)
 
 # ------------------------
 if __name__ == "__main__":

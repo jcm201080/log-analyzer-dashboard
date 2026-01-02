@@ -14,13 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Datos recibidos:", data);
 
       // =========================
+      // ARCHIVO ANALIZADO
+      // =========================
+      const logNameEl = document.getElementById("log-name");
+      if (logNameEl && data.log_name) {
+        logNameEl.textContent = data.log_name;
+      }
+
+      // =========================
       // RESUMEN GENERAL
       // =========================
       const totalEl = document.getElementById("total");
       if (totalEl && data.total_intentos !== undefined) {
-        totalEl.textContent = `Total de intentos detectados: ${data.total_intentos}`;
+        totalEl.textContent = data.total_intentos;
       }
 
+      //Aviso fechas incompletas
+      const warningEl = document.getElementById("date-warning");
+      if (warningEl) {
+        warningEl.style.display = data.fechas_incompletas ? "block" : "none";
+      }
       // =========================
       // HOSTS MÁS AGRESIVOS
       // =========================
@@ -70,13 +83,21 @@ document.addEventListener("DOMContentLoaded", () => {
 // =========================
 // GRÁFICOS
 // =========================
+
+let hostsChartInstance = null;
+let usersChartInstance = null;
+
 function crearGraficoHosts(hosts) {
   const ctx = document.getElementById("hostsChart");
   if (!ctx) return;
 
+  if (hostsChartInstance) {
+    hostsChartInstance.destroy();
+  }
+
   const top5 = hosts.slice(0, 5);
 
-  new Chart(ctx, {
+  hostsChartInstance = new Chart(ctx, {
     type: "bar",
     data: {
       labels: top5.map((h) => h.host),
@@ -98,7 +119,11 @@ function crearGraficoUsuarios(usuarios) {
   const ctx = document.getElementById("usersChart");
   if (!ctx) return;
 
-  new Chart(ctx, {
+  if (usersChartInstance) {
+    usersChartInstance.destroy();
+  }
+
+  usersChartInstance = new Chart(ctx, {
     type: "pie",
     data: {
       labels: usuarios.map((u) => u.usuario),

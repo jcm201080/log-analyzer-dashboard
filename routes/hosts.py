@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
+from pathlib import Path
 from processing.analyzer import analyze
 from processing.geoip import get_geo_info
 
@@ -10,11 +11,16 @@ def hosts():
     if not session.get("user"):
         return redirect(url_for("auth.login"))
 
-    # ⏱️ Filtro temporal
+    # ⏱️ Filtro temporal (futuro)
     time_range = request.args.get("range", "24h")
 
+    # 📄 Log activo
+    log_path = session.get("active_log")
+    if log_path:
+        log_path = Path(log_path)
+
     # 🔍 Análisis
-    results = analyze()
+    results = analyze(log_path)
     raw_hosts = results.get("hosts", [])
 
     hosts = [
@@ -26,24 +32,25 @@ def hosts():
         for h in raw_hosts
     ]
 
-
     return render_template(
         "hosts.html",
         hosts=hosts,
-        time_range=time_range
+        time_range=time_range,
+        log_name=results.get("log_name")
     )
-
-
-
-# detalle de un host específico
 @hosts_bp.route("/hosts/<path:ip>")
 def host_detail(ip):
     # 🔐 Protección
     if not session.get("user"):
         return redirect(url_for("auth.login"))
 
+    # 📄 Log activo
+    log_path = session.get("active_log")
+    if log_path:
+        log_path = Path(log_path)
+
     # 🔍 Ejecutar análisis
-    results = analyze()
+    results = analyze(log_path)
     raw_hosts = results.get("hosts", [])
 
     # Buscar el host concreto
@@ -79,5 +86,6 @@ def host_detail(ip):
 
     return render_template(
         "host_detail.html",
-        host=host
+        host=host,
+        log_name=results.get("log_name")
     )

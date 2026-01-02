@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, session
 from processing.analyzer import analyze
 from utils.security import login_required
 
@@ -13,7 +13,8 @@ def dashboard_view():
 @login_required
 def dashboard_data():
     try:
-        data = analyze()
+        log_path = session.get("active_log")  # 👈 CLAVE
+        data = analyze(log_path)
 
         # Limitar SOLO para el dashboard
         data["hosts"] = data.get("hosts", [])[:15]
@@ -27,4 +28,3 @@ def dashboard_data():
             "usuarios": [],
             "error": str(e)
         }), 500
-

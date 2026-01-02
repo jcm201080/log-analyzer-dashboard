@@ -27,12 +27,18 @@ def export():
     if not session.get("user"):
         return redirect(url_for("auth.login"))
 
-    # ⏱️ Filtro temporal (preparado para futuro)
+    # ⏱️ Filtro temporal (futuro)
     time_range = request.args.get("range", "24h")
+
+    # 📄 Log activo
+    log_path = session.get("active_log")
+
+    results = analyze(log_path)
 
     return render_template(
         "export.html",
-        time_range=time_range
+        time_range=time_range,
+        log_name=results.get("log_name")
     )
 
 
@@ -44,17 +50,18 @@ def export_csv():
     if not session.get("user"):
         return redirect(url_for("auth.login"))
 
+    # 📄 Log activo
+    log_path = session.get("active_log")
+
     # 🔍 Ejecutar análisis
-    results = analyze()
+    results = analyze(log_path)
     hosts = results.get("hosts", [])
 
     output = StringIO()
     writer = csv.writer(output)
 
-    # Cabecera CSV
     writer.writerow(["ip", "pais", "region", "ciudad", "intentos"])
 
-    # Datos
     for h in hosts:
         ip = h.get("host")
         geo = get_geo_info(ip)
@@ -78,6 +85,7 @@ def export_csv():
     return response
 
 
+
 # =====================================================
 # EXPORTAR JSON
 # =====================================================
@@ -86,8 +94,11 @@ def export_json():
     if not session.get("user"):
         return redirect(url_for("auth.login"))
 
+    # 📄 Log activo
+    log_path = session.get("active_log")
+
     # 🔍 Ejecutar análisis
-    results = analyze()
+    results = analyze(log_path)
     hosts = results.get("hosts", [])
 
     data = [
@@ -108,3 +119,4 @@ def export_json():
     )
 
     return response
+
