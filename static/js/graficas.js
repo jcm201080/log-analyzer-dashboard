@@ -104,8 +104,7 @@ function crearGraficoPaises(hosts) {
     else if (host.endsWith(".br")) pais = "Brasil";
     else if (host.endsWith(".net") || host.endsWith(".com"))
       pais = "Internacional";
-    else if (/^\d+\.\d+\.\d+\.\d+$/.test(host))
-      pais = "IP desconocida";
+    else if (/^\d+\.\d+\.\d+\.\d+$/.test(host)) pais = "IP desconocida";
 
     conteo[pais] = (conteo[pais] || 0) + h.intentos;
   });

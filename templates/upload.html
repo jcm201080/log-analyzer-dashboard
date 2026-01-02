@@ -1,13 +1,10 @@
-{% extends "base.html" %}
-
-{% block title %}Subir log{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Subir log{% endblock %} {% block
+content %}
 <h1>📤 Subir archivo de log</h1>
 
 <p>
-  Selecciona un archivo de log para analizarlo con el sistema.
-  Se admiten logs de Linux, OpenSSH y formatos similares.
+  Selecciona un archivo de log para analizarlo con el sistema. Se admiten logs
+  de Linux, OpenSSH y formatos similares.
 </p>
 
 <form
@@ -16,19 +13,11 @@
   enctype="multipart/form-data"
   class="upload-form"
 >
-  <input
-    type="file"
-    name="logfile"
-    accept=".log,.txt"
-    required
-  />
+  <input type="file" name="logfile" accept=".log,.txt" required />
 
-  <button type="submit" class="btn-primary">
-    Analizar log
-  </button>
+  <button type="submit" class="btn-primary">Analizar log</button>
 </form>
 
 {% if error %}
-  <p class="error">{{ error }}</p>
-{% endif %}
-{% endblock %}
+<p class="error">{{ error }}</p>
+{% endif %} {% endblock %}

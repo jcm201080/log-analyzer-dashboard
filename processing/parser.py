@@ -2,7 +2,7 @@ import re
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEFAULT_LOG_PATH = BASE_DIR / "data" / "OpenSSH_2k.log"
+DEFAULT_LOG_PATH = BASE_DIR / "data" / "Linux_2k.log"
 
 LOG_PATTERN = re.compile(
     r'^(?P<date>\w+\s+\d+\s[\d:]+).*authentication failure.*rhost=(?P<rhost>[^\s]+)(?:.*user=(?P<user>\w+))?'
