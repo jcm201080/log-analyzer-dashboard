@@ -21,8 +21,9 @@ def analyze(log_path=None):
     # =========================
     # PARSEAR LOG
     # =========================
-    data = parse_log(log_path)
+    data, _ = parse_log(log_path)
     df = pd.DataFrame(data)
+
 
     # =========================
     # NOMBRE DEL LOG

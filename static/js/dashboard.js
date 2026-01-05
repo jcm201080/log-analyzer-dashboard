@@ -145,3 +145,12 @@ function crearGraficoUsuarios(usuarios) {
     },
   });
 }
+
+
+function openAnalysisInfo() {
+  document.getElementById("analysisModal").classList.remove("hidden");
+}
+
+function closeAnalysisInfo() {
+  document.getElementById("analysisModal").classList.add("hidden");
+}

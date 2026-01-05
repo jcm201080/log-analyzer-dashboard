@@ -18,19 +18,38 @@ def parse_log(log_path=None):
 
     results = []
 
+    total_lines = 0
+    parsed_lines = 0
+    discarded_lines = 0
+
     with open(log_path, "r", encoding="utf-8", errors="ignore") as file:
         for line in file:
+            total_lines += 1
+
             match = LOG_PATTERN.search(line)
             if match:
                 data = match.groupdict()
                 if not data.get("user"):
                     data["user"] = "unknown"
-                results.append(data)
 
-    return results
+                results.append(data)
+                parsed_lines += 1
+            else:
+                discarded_lines += 1
+
+    return results, {
+        "total_lines": total_lines,
+        "parsed_lines": parsed_lines,
+        "discarded_lines": discarded_lines,
+    }
 
 
 if __name__ == "__main__":
-    data = parse_log()
-    print(f"Registros detectados: {len(data)}")
-    print(data[:5])
+    results, stats = parse_log()
+
+    print(f"Líneas totales: {stats['total_lines']}")
+    print(f"Líneas analizadas: {stats['parsed_lines']}")
+    print(f"Líneas descartadas: {stats['discarded_lines']}")
+    print(f"Registros detectados: {len(results)}")
+    print(results[:5])
+
