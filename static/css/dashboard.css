@@ -92,7 +92,6 @@ body {
   font-size: 17px;
 }
 
-
 /* =====================================================
    HEADER INTERNO DE CARD
 ===================================================== */
@@ -165,12 +164,13 @@ body {
   }
 }
 
-
-.modal.hidden { display: none; }
+.modal.hidden {
+  display: none;
+}
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;

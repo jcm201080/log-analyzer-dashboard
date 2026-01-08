@@ -7,7 +7,9 @@ data/geoip/
 
 # Logs y datos locales
 data/OpenSSH_2k.log
+data/Apache_2k.log
 data/uploads/
 
 # Variables de entorno
 .env
+

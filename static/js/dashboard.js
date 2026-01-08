@@ -146,11 +146,10 @@ function crearGraficoUsuarios(usuarios) {
   });
 }
 
-
-function openAnalysisInfo() {
+window.openAnalysisInfo = function () {
   document.getElementById("analysisModal").classList.remove("hidden");
-}
+};
 
-function closeAnalysisInfo() {
+window.closeAnalysisInfo = function () {
   document.getElementById("analysisModal").classList.add("hidden");
-}
+};

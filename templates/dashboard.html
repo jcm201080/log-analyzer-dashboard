@@ -1,25 +1,26 @@
-{% extends "base.html" %}
-{% block title %}Dashboard de Seguridad{% endblock %}
-
-{% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+{% extends "base.html" %} {% block title %}Dashboard de Seguridad{% endblock %}
+{% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/dashboard.css') }}"
+/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
-{% endblock %}
-
-{% block content %}
+<script
+  src="{{ url_for('static', filename='js/dashboard.js') }}"
+  defer
+></script>
+{% endblock %} {% block content %}
 
 <section class="dashboard-header">
   <h1>🔐 Dashboard de Seguridad</h1>
   <p>Análisis automático de registros de seguridad</p>
-  <p id="date-warning" class="warning" style="display:none; margin-top:8px">
-    ⚠️ Este log no incluye fechas completas (año/zona horaria). El filtrado temporal es orientativo.
+  <p id="date-warning" class="warning" style="display: none; margin-top: 8px">
+    ⚠️ Este log no incluye fechas completas (año/zona horaria). El filtrado
+    temporal es orientativo.
   </p>
 </section>
 
 <section class="dashboard-grid">
-
   <!-- 1️⃣ RESUMEN GENERAL -->
   <section class="card small summary">
     <div class="card-header">
@@ -40,11 +41,9 @@
 
     <p>Total de intentos detectados</p>
     <p id="total" class="big-number">{{ total_attempts }}</p>
-
   </section>
-  
 
-    <!-- 4️⃣ USUARIOS MÁS ATACADOS -->
+  <!-- 4️⃣ USUARIOS MÁS ATACADOS -->
   <a href="{{ url_for('hosts.hosts') }}" class="card small">
     <h2>👤 Usuarios más atacados</h2>
     <ul id="users" class="list preview"></ul>
@@ -54,7 +53,9 @@
   <section class="card wide">
     <div class="card-header">
       <h2>🌍 Hosts más agresivos</h2>
-      <a href="{{ url_for('hosts.hosts') }}" class="link-detail">Ver detalle →</a>
+      <a href="{{ url_for('hosts.hosts') }}" class="link-detail"
+        >Ver detalle →</a
+      >
     </div>
     <ul id="rhosts" class="list"></ul>
   </section>
@@ -64,14 +65,12 @@
     <h2>📈 Top 5 Hosts más agresivos</h2>
     <canvas id="hostsChart"></canvas>
   </a>
-  
 
   <!-- 5️⃣ EXPORTACIÓN -->
   <a href="{{ url_for('export.export') }}" class="card small export">
     <h2>⬇ Exportación</h2>
     <p>Descarga de informes e inteligencia</p>
   </a>
-
 </section>
 
 <!-- 🔹 MODAL EXPLICATIVO -->
@@ -79,9 +78,10 @@
   <div class="modal-content">
     <h3>ℹ️ ¿Cómo interpretar este análisis?</h3>
     <p>
-      El archivo analizado contiene <strong>{{ log_stats.total_lines }}</strong> líneas,
-      de las cuales únicamente <strong>{{ log_stats.parsed_lines }}</strong> corresponden
-      a eventos relevantes de seguridad (fallos de autenticación).
+      El archivo analizado contiene
+      <strong>{{ log_stats.total_lines }}</strong> líneas, de las cuales
+      únicamente <strong>{{ log_stats.parsed_lines }}</strong> corresponden a
+      eventos relevantes de seguridad (fallos de autenticación).
     </p>
     <p>
       El resto (<strong>{{ log_stats.discarded_lines }}</strong>) se descartan
