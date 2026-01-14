@@ -1,6 +1,11 @@
+import os
 import pandas as pd
 from pathlib import Path
 from processing.parser import parse_log
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
 
 
 def calcular_gravedad(intentos):
@@ -95,9 +100,13 @@ def analyze(log_path=None):
     }
 
 
-def export_blocklist(hosts, filename="blocklist.txt"):
+def export_blocklist(hosts, filename=None):
+    if filename is None:
+        filename = os.path.join(DATA_DIR, "blocklist.txt")
+
     peligrosos = [h["host"] for h in hosts if h["gravedad"] == "alta"]
 
     with open(filename, "w", encoding="utf-8") as f:
         for host in peligrosos:
             f.write(f"{host}\n")
+
