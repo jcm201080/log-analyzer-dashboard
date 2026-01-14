@@ -47,6 +47,25 @@ body {
   filter: drop-shadow(0 0 6px rgba(0, 255, 200, 0.4));
 }
 
+.sidebar-portfolio {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.sidebar-portfolio a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #cfd8dc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+
+
 /* ===========================
    MENÚ LATERAL
 =========================== */

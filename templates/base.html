@@ -62,7 +62,8 @@
           {% else %}
           <li>
             <a href="{{ url_for('auth.login') }}">🔐 Iniciar sesión</a>
-          </li>
+          </li>        
+
           {% endif %}
         </ul>
       </nav>
@@ -77,11 +78,12 @@
       <!-- ================= FOOTER ================= -->
       <footer class="app-footer">
         {% block footer %}
-        <p>&copy; 2025 Panel de Seguridad. Todos los derechos reservados.</p>
-        <p>
-          Contacto:
-          <a href="mailto:jcm201080@gmail.com"> jcm201080@gmail.com </a>
-        </p>
+        <p>© 2025 JCM Ciberseguridad</p>
+            <div class="brand">
+                <img src="{{ url_for('static', filename='img/jcmweb.svg') }}" alt="JCMWEB logo">
+                <a href="https://jesuscmweb.com" target="_blank">JESUSCMWEB</a>
+            </div>      
+
         {% endblock %}
       </footer>
     </div>
