@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // HOSTS MÁS AGRESIVOS
       // =========================
       const rhosts = document.getElementById("rhosts");
-      if (rhosts && Array.isArray(data.hosts)) {
+      if (rhosts && Array.isArray(data.hosts) && data.hosts.length > 0) {
         rhosts.innerHTML = "";
 
         data.hosts
@@ -55,13 +55,21 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
         crearGraficoHosts(data.hosts);
+      } else {
+        // 🛑 Ocultar sección hosts + gráfica
+        const hostsCard = document.querySelector(".card.wide");
+        const chartCard = document.querySelector(".card.chart");
+
+        if (hostsCard) hostsCard.style.display = "none";
+        if (chartCard) chartCard.style.display = "none";
       }
+
 
       // =========================
       // USUARIOS MÁS ATACADOS
       // =========================
       const users = document.getElementById("users");
-      if (users && Array.isArray(data.usuarios)) {
+      if (users && Array.isArray(data.usuarios) && data.usuarios.length > 0) {
         users.innerHTML = "";
 
         data.usuarios
@@ -73,7 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
         crearGraficoUsuarios(data.usuarios);
+      } else {
+        const usersCard = document.querySelector(".card.small:has(#users)");
+        if (usersCard) usersCard.style.display = "none";
       }
+
     })
     .catch((err) => {
       console.error("❌ Error en dashboard.js:", err);

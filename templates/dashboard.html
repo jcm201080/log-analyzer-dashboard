@@ -1,36 +1,58 @@
-{% extends "base.html" %} {% block title %}Dashboard de Seguridad{% endblock %}
-{% block head %} {{ super() }}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='css/dashboard.css') }}"
-/>
+{% extends "base.html" %}
+{% block title %}Dashboard de Seguridad{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script
-  src="{{ url_for('static', filename='js/dashboard.js') }}"
-  defer
-></script>
-{% endblock %} {% block content %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+
+
 
 <section class="dashboard-header">
   <h1>🔐 Dashboard de Seguridad</h1>
   <p>Análisis automático de registros de seguridad</p>
-  <p id="date-warning" class="warning" style="display: none; margin-top: 8px">
-    ⚠️ Este log no incluye fechas completas (año/zona horaria). El filtrado
-    temporal es orientativo.
-  </p>
 </section>
 
+{# ------------- UNKNOWN ------------- #}
+
+{% if log_type == "unknown" %}
+<section class="card small warning-card">
+  <h2>⚠️ Tipo de log no reconocido</h2>
+  <p>
+    El archivo cargado no coincide con los formatos de autenticación ni de red
+    soportados por el sistema.
+  </p>
+  <p>
+    Algunas secciones pueden aparecer vacías o incompletas.
+  </p>
+</section>
+{% endif %}
+{# ------------- UNKNOWN ------------- #}
+
+
+<br>
+
 <section class="dashboard-grid">
-  <!-- 1️⃣ RESUMEN GENERAL -->
+
+  
+  
+  {# ===================== UNKNOWN ===================== #}
+  {% if log_type == "unknown" %}
+
   <section class="card small summary">
     <div class="card-header">
-      <h2>📊 Resumen general</h2>
+      <h2>🔐 Análisis del log cargado</h2>
       <button class="info-btn" onclick="openAnalysisInfo()">ℹ️</button>
     </div>
 
     <p class="log-info">
       📄 Archivo analizado:
-      <strong id="log-name">{{ log_name }}</strong>
+      <strong>{{ log_name }}</strong>
     </p>
 
     <p class="log-stats">
@@ -40,56 +62,177 @@
     </p>
 
     <p>Total de intentos detectados</p>
-    <p id="total" class="big-number">{{ total_attempts }}</p>
+    <p id="total" class="big-number">—</p>
   </section>
 
-  <!-- 4️⃣ USUARIOS MÁS ATACADOS -->
+   <section class="card small summary network-summary">
+    <div class="card-header">
+      <h2>🌐 Contexto global de red</h2>
+      <button
+        class="info-btn"
+        title="Información contextual de red. El detalle por IP se consulta en la sección Hosts."
+      >
+        ℹ️
+      </button>
+    </div>
+
+    <p class="log-info">
+      📡 Fuente:
+      <strong>Tráfico de red (Zeek / conn.log)</strong>
+    </p>
+
+    <p class="log-stats">
+      🖥️ Hosts detectados: <strong>{{ network_summary.hosts }}</strong><br />
+      📊 Eventos totales: <strong>{{ network_summary.events }}</strong><br />
+      🔥 Hosts críticos: <strong>{{ network_summary.critical }}</strong>
+    </p>
+
+    <p class="network-note">
+      Indicadores obtenidos a partir de un análisis previo de tráfico de red.
+    </p>
+  </section>
+
+  <section class="card wide">
+    <div class="card-header">
+      <h2>🌍 Hosts más agresivos</h2>
+      <a href="{{ url_for('hosts.hosts') }}" class="link-detail">Ver detalle →</a>
+    </div>
+    <ul id="rhosts" class="list"></ul>
+  </section>
+
+  
+
   <a href="{{ url_for('hosts.hosts') }}" class="card small">
     <h2>👤 Usuarios más atacados</h2>
     <ul id="users" class="list preview"></ul>
   </a>
 
-  <!-- 2️⃣ HOSTS MÁS AGRESIVOS -->
   <section class="card wide">
     <div class="card-header">
       <h2>🌍 Hosts más agresivos</h2>
-      <a href="{{ url_for('hosts.hosts') }}" class="link-detail"
-        >Ver detalle →</a
-      >
+      <a href="{{ url_for('hosts.hosts') }}" class="link-detail">Ver detalle →</a>
     </div>
     <ul id="rhosts" class="list"></ul>
   </section>
 
-  <!-- 3️⃣ GRÁFICA HOSTS -->
   <a href="{{ url_for('graficas.graficas') }}" class="card chart">
     <h2>📈 Top 5 Hosts más agresivos</h2>
     <canvas id="hostsChart"></canvas>
   </a>
 
-  <!-- 5️⃣ EXPORTACIÓN -->
   <a href="{{ url_for('export.export') }}" class="card small export">
     <h2>⬇ Exportación</h2>
     <p>Descarga de informes e inteligencia</p>
   </a>
+  
+
+  {% endif %}
+  
+  {# ===================== AUTH ===================== #}
+  {% if log_type == "auth" %}
+
+  <section class="card small summary">
+    <div class="card-header">
+      <h2>🔐 Análisis del log cargado</h2>
+      <button class="info-btn" onclick="openAnalysisInfo()">ℹ️</button>
+    </div>
+
+    <p class="log-info">
+      📄 Archivo analizado:
+      <strong>{{ log_name }}</strong>
+    </p>
+
+    <p class="log-stats">
+      📑 Líneas totales: <strong>{{ log_stats.total_lines }}</strong><br />
+      ✅ Líneas analizadas: <strong>{{ log_stats.parsed_lines }}</strong><br />
+      🗑️ Líneas no relevantes: <strong>{{ log_stats.discarded_lines }}</strong>
+    </p>
+
+    <p>Total de intentos detectados</p>
+    <p id="total" class="big-number">—</p>
+  </section>
+
+  <a href="{{ url_for('hosts.hosts') }}" class="card small">
+    <h2>👤 Usuarios más atacados</h2>
+    <ul id="users" class="list preview"></ul>
+  </a>
+
+  <section class="card wide">
+    <div class="card-header">
+      <h2>🌍 Hosts más agresivos</h2>
+      <a href="{{ url_for('hosts.hosts') }}" class="link-detail">Ver detalle →</a>
+    </div>
+    <ul id="rhosts" class="list"></ul>
+  </section>
+
+  <a href="{{ url_for('graficas.graficas') }}" class="card chart">
+    <h2>📈 Top 5 Hosts más agresivos</h2>
+    <canvas id="hostsChart"></canvas>
+  </a>
+
+  <a href="{{ url_for('export.export') }}" class="card small export">
+    <h2>⬇ Exportación</h2>
+    <p>Descarga de informes e inteligencia</p>
+  </a>
+
+  {% endif %}
+
+  {# ===================== NETWORK ===================== #}
+  {% if log_type == "network" %}
+
+  <section class="card small summary network-summary">
+    <div class="card-header">
+      <h2>🌐 Contexto global de red</h2>
+      <button
+        class="info-btn"
+        title="Información contextual de red. El detalle por IP se consulta en la sección Hosts."
+      >
+        ℹ️
+      </button>
+    </div>
+
+    <p class="log-info">
+      📡 Fuente:
+      <strong>Tráfico de red (Zeek / conn.log)</strong>
+    </p>
+
+    <p class="log-stats">
+      🖥️ Hosts detectados: <strong>{{ network_summary.hosts }}</strong><br />
+      📊 Eventos totales: <strong>{{ network_summary.events }}</strong><br />
+      🔥 Hosts críticos: <strong>{{ network_summary.critical }}</strong>
+    </p>
+
+    <p class="network-note">
+      Indicadores obtenidos a partir de un análisis previo de tráfico de red.
+    </p>
+  </section>
+
+  <section class="card wide">
+    <div class="card-header">
+      <h2>🌍 Hosts más agresivos</h2>
+      <a href="{{ url_for('hosts.hosts') }}" class="link-detail">Ver detalle →</a>
+    </div>
+    <ul id="rhosts" class="list"></ul>
+  </section>
+
+  {% endif %}
+
 </section>
 
-<!-- 🔹 MODAL EXPLICATIVO -->
+{% if log_type == "auth" %}
+<!-- 🔹 MODAL EXPLICATIVO SOLO AUTH -->
 <div id="analysisModal" class="modal hidden">
   <div class="modal-content">
     <h3>ℹ️ ¿Cómo interpretar este análisis?</h3>
     <p>
       El archivo analizado contiene
       <strong>{{ log_stats.total_lines }}</strong> líneas, de las cuales
-      únicamente <strong>{{ log_stats.parsed_lines }}</strong> corresponden a
-      eventos relevantes de seguridad (fallos de autenticación).
-    </p>
-    <p>
-      El resto (<strong>{{ log_stats.discarded_lines }}</strong>) se descartan
-      intencionadamente al tratarse de ruido o eventos normales del sistema,
-      simulando el comportamiento de un entorno real.
+      <strong>{{ log_stats.parsed_lines }}</strong> corresponden a eventos
+      relevantes de seguridad.
     </p>
     <button onclick="closeAnalysisInfo()">Cerrar</button>
   </div>
 </div>
+{% endif %}
 
 {% endblock %}

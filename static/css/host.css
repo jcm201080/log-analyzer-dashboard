@@ -127,6 +127,27 @@
   color: #166534;
 }
 
+.badge.low {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+}
+
+.badge.medium {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.badge.high {
+  background-color: #ffebee;
+  color: #b71c1c;
+}
+
+.badge.critical {
+  background-color: #b71c1c;
+  color: white;
+}
+
+
 /* ---------- Actions ---------- */
 .btn-small {
   font-size: 0.8rem;

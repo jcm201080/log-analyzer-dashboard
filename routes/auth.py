@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 
+
+
 auth_bp = Blueprint("auth", __name__)
 
 # Usuarios de ejemplo (para prácticas)

@@ -44,28 +44,49 @@ block head %} {{ super() }}
     <tbody>
       {% for host in hosts %}
       <tr>
-        <td>{{ host.ip }}</td>
+        <td>
+          {% if host.log_type == "auth" %}
+            🔐
+          {% elif host.log_type == "network" %}
+            🌐
+          {% else %}
+            🔀
+          {% endif %}
+          {{ host.ip }}
+        </td>
+
         <td>{{ host.country }}</td>
         <td>{{ host.city }}</td>
+
         <td>{{ host.intentos }}</td>
+
         <td>
-          {% if host.intentos > 20 %}
-          <span class="badge danger">Alta</span>
-          {% elif host.intentos > 10 %}
-          <span class="badge warning">Media</span>
+          {% if host.log_type == "network" and host.risk_level %}
+            <span class="badge {{ host.risk_level }}">
+              {{ host.risk_level | capitalize }}
+            </span>
           {% else %}
-          <span class="badge ok">Baja</span>
+            {% if host.intentos > 20 %}
+              <span class="badge danger">Alta</span>
+            {% elif host.intentos > 10 %}
+              <span class="badge warning">Media</span>
+            {% else %}
+              <span class="badge ok">Baja</span>
+            {% endif %}
           {% endif %}
         </td>
+
         <td>
           <a
             href="{{ url_for('hosts.host_detail', ip=host.ip) }}"
             class="btn-small btn-link"
-            >Detalle</a
           >
+            Detalle
+          </a>
         </td>
       </tr>
       {% endfor %}
+
     </tbody>
   </table>
 </section>
