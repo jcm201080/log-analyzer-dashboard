@@ -9,6 +9,9 @@ data/geoip/
 data/OpenSSH_2k.log
 data/Apache_2k.log
 data/uploads/
+data/*.log
+data/*.log.gz
+data/*.json
 
 # Variables de entorno
 .env

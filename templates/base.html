@@ -62,7 +62,7 @@
           {% else %}
           <li>
             <a href="{{ url_for('auth.login') }}">🔐 Iniciar sesión</a>
-          </li>        
+          </li>
 
           {% endif %}
         </ul>
@@ -77,13 +77,15 @@
 
       <!-- ================= FOOTER ================= -->
       <footer class="app-footer">
-          <p>© 2025 JCM Ciberseguridad</p>
-          <div class="brand">
-              <img src="{{ url_for('static', filename='img/jcmweb.svg') }}" alt="JCMWEB logo">
-              <a href="https://jesuscmweb.com" target="_blank">jesuscmweb.com</a>
-          </div>
+        <p>© 2025 JCM Ciberseguridad</p>
+        <div class="brand">
+          <img
+            src="{{ url_for('static', filename='img/jcmweb.svg') }}"
+            alt="JCMWEB logo"
+          />
+          <a href="https://jesuscmweb.com" target="_blank">jesuscmweb.com</a>
+        </div>
       </footer>
-
     </div>
   </body>
 </html>

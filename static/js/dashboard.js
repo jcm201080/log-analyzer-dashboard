@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (chartCard) chartCard.style.display = "none";
       }
 
-
       // =========================
       // USUARIOS MÁS ATACADOS
       // =========================
@@ -85,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const usersCard = document.querySelector(".card.small:has(#users)");
         if (usersCard) usersCard.style.display = "none";
       }
-
     })
     .catch((err) => {
       console.error("❌ Error en dashboard.js:", err);

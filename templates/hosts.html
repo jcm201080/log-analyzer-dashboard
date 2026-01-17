@@ -45,14 +45,8 @@ block head %} {{ super() }}
       {% for host in hosts %}
       <tr>
         <td>
-          {% if host.log_type == "auth" %}
-            🔐
-          {% elif host.log_type == "network" %}
-            🌐
-          {% else %}
-            🔀
-          {% endif %}
-          {{ host.ip }}
+          {% if host.log_type == "auth" %} 🔐 {% elif host.log_type == "network"
+          %} 🌐 {% else %} 🔀 {% endif %} {{ host.ip }}
         </td>
 
         <td>{{ host.country }}</td>
@@ -62,18 +56,16 @@ block head %} {{ super() }}
 
         <td>
           {% if host.log_type == "network" and host.risk_level %}
-            <span class="badge {{ host.risk_level }}">
-              {{ host.risk_level | capitalize }}
-            </span>
+          <span class="badge {{ host.risk_level }}">
+            {{ host.risk_level | capitalize }}
+          </span>
+          {% else %} {% if host.intentos > 20 %}
+          <span class="badge danger">Alta</span>
+          {% elif host.intentos > 10 %}
+          <span class="badge warning">Media</span>
           {% else %}
-            {% if host.intentos > 20 %}
-              <span class="badge danger">Alta</span>
-            {% elif host.intentos > 10 %}
-              <span class="badge warning">Media</span>
-            {% else %}
-              <span class="badge ok">Baja</span>
-            {% endif %}
-          {% endif %}
+          <span class="badge ok">Baja</span>
+          {% endif %} {% endif %}
         </td>
 
         <td>
@@ -86,7 +78,6 @@ block head %} {{ super() }}
         </td>
       </tr>
       {% endfor %}
-
     </tbody>
   </table>
 </section>
