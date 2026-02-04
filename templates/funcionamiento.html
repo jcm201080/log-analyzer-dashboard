@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% block title %}Funcionamiento del Sistema{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/funcionamiento.css') }}"
+  />
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+  <h1>📘 Funcionamiento y ejecución del sistema</h1>
+  <p>
+    Descripción del flujo de análisis, procesamiento y visualización del
+    analizador automático de registros de seguridad.
+  </p>
+</section>
+
+<section class="card">
+  <h2>🔎 Visión general</h2>
+  <p>
+    El sistema ha sido diseñado para analizar automáticamente archivos de log de
+    seguridad, procesando grandes volúmenes de información y transformándolos en
+    métricas claras y accionables.
+  </p>
+  <p>
+    El objetivo principal es facilitar la detección de actividad sospechosa sin
+    necesidad de revisar manualmente los registros, manteniendo una arquitectura
+    modular y escalable.
+  </p>
+</section>
+
+<section class="card">
+  <h2>🔄 Flujo general del sistema</h2>
+  <p>
+    El funcionamiento del sistema sigue un flujo claramente definido:
+  </p>
+
+  <ul class="list">
+    <li><strong>Carga del archivo de log</strong></li>
+    <li><strong>Detección automática del tipo de log</strong></li>
+    <li><strong>Parseo y filtrado de eventos relevantes</strong></li>
+    <li><strong>Análisis y clasificación de actividad sospechosa</strong></li>
+    <li><strong>Visualización y exportación de resultados</strong></li>
+  </ul>
+
+  <p>
+    Esta separación permite desacoplar el análisis del sistema de la
+    visualización, mejorando la mantenibilidad y evitando dependencias
+    innecesarias.
+  </p>
+</section>
+
+<section class="card">
+  <h2>📥 Carga de archivos de log</h2>
+  <p>
+    El usuario puede cargar archivos de log directamente desde la interfaz web.
+    El archivo seleccionado se establece como <strong>log activo</strong> y es
+    utilizado por todas las vistas del sistema.
+  </p>
+  <p>
+    Se admiten logs de sistemas Linux, OpenSSH y formatos similares. En caso de
+    que el archivo no sea reconocido, el sistema informa explícitamente al
+    usuario y adapta la visualización para evitar interpretaciones incorrectas.
+  </p>
+</section>
+
+<section class="card">
+  <h2>🧩 Detección del tipo de log</h2>
+  <p>
+    Tras la carga del archivo, el sistema detecta automáticamente el tipo de log
+    analizado:
+  </p>
+
+  <ul class="list">
+    <li><strong>auth</strong>: logs de autenticación (Linux / OpenSSH)</li>
+    <li><strong>network</strong>: logs de tráfico de red (Zeek / conn.log)</li>
+    <li><strong>unknown</strong>: formato no reconocido</li>
+  </ul>
+
+  <p>
+    Esta clasificación gobierna tanto el análisis como el comportamiento visual
+    del dashboard.
+  </p>
+</section>
+
+<section class="card">
+  <h2>🧪 Parseo y filtrado de eventos</h2>
+  <p>
+    El sistema aplica técnicas de <strong>log parsing</strong> mediante
+    expresiones regulares para extraer únicamente los eventos relevantes desde el
+    punto de vista de la seguridad.
+  </p>
+  <p>
+    Las líneas que no corresponden a eventos de interés se consideran
+    <em>ruido</em> y se descartan intencionadamente, simulando el comportamiento
+    real de un entorno de producción.
+  </p>
+</section>
+
+<section class="card">
+  <h2>📊 Análisis y clasificación</h2>
+  <p>
+    A partir de los eventos parseados, el sistema realiza un análisis que incluye:
+  </p>
+
+  <ul class="list">
+    <li>Agrupación por dirección IP y usuario</li>
+    <li>Cálculo del número de intentos detectados</li>
+    <li>Clasificación de gravedad según umbrales definidos</li>
+    <li>Enriquecimiento opcional mediante información geográfica</li>
+  </ul>
+
+  <p>
+    El resultado del análisis se transforma en estructuras de datos listas para
+    su visualización o exportación.
+  </p>
+</section>
+
+<section class="card">
+  <h2>🖥️ Visualización de resultados</h2>
+  <p>
+    El dashboard actúa como capa de interpretación del sistema. No realiza
+    análisis directo, sino que consume los datos ya procesados.
+  </p>
+  <p>
+    La interfaz se adapta dinámicamente al tipo de log cargado, mostrando
+    únicamente las métricas y gráficas que aplican en cada caso.
+  </p>
+</section>
+
+<section class="card">
+  <h2>⬇️ Exportación de inteligencia</h2>
+  <p>
+    El sistema contempla la exportación de los resultados del análisis en formatos
+    estructurados como CSV y JSON.
+  </p>
+  <p>
+    Esta funcionalidad está orientada a la generación de inteligencia accionable,
+    permitiendo la integración con sistemas externos como firewalls, IDS/IPS o
+    herramientas SIEM.
+  </p>
+</section>
+
+<section class="card">
+  <h2>⚠️ Limitaciones actuales</h2>
+  <ul class="list">
+    <li>Algunos logs no incluyen información temporal completa.</li>
+    <li>La exportación completa se plantea como fase posterior.</li>
+    <li>El procesamiento en tiempo real no está implementado en esta versión.</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>🚀 Evolución futura</h2>
+  <ul class="list">
+    <li>Normalización completa de fechas y filtros temporales avanzados.</li>
+    <li>Procesamiento de logs en tiempo real.</li>
+    <li>Integración con sistemas de mensajería y alertas.</li>
+    <li>Uso de tecnologías como Kafka para streaming de eventos.</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>🧪 Simulación controlada de ataques</h2>
+  <p>
+    El proyecto incluye un archivo de log simulado con eventos de ataque
+    realistas, utilizado para validar el comportamiento del sistema en distintos
+    escenarios sin depender de datos externos ni procesamiento en tiempo real.
+  </p>
+  <p>
+    Esta simulación permite comprobar la detección de fuerza bruta, la
+    clasificación de gravedad y la correcta visualización de resultados en el
+    dashboard.
+  </p>
+</section>
+
+
+<section class="card">
+  <h2>❓ Dudas o consultas</h2>
+  <p>
+    Si tienes alguna duda sobre el funcionamiento del sistema o el análisis
+    realizado, puedes enviar una consulta.
+  </p>
+
+  <form method="post">
+    <label>Correo electrónico</label>
+    <input type="email" name="email" required />
+
+    <label>Mensaje</label>
+    <textarea name="mensaje" rows="4" required></textarea>
+
+    <button disabled>Enviar consulta</button>
+  </form>
+
+  <p class="hint">
+    ⚠️ La gestión de consultas será habilitada en una fase posterior del
+    proyecto.
+  </p>
+</section>
+
+
+{% endblock %}

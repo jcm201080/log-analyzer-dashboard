@@ -219,7 +219,13 @@
       <strong>{{ log_stats.parsed_lines }}</strong> corresponden a eventos
       relevantes de seguridad.
     </p>
+    <p>
+      El resto de líneas se descartan al tratarse de actividad normal del sistema
+      sin impacto en la seguridad, lo que permite centrar el análisis únicamente
+      en eventos potencialmente sospechosos.
+    </p>
     <button onclick="closeAnalysisInfo()">Cerrar</button>
   </div>
 </div>
+
 {% endif %} {% endblock %}
