@@ -9,6 +9,10 @@ from routes.export import export_bp
 from routes.graficas import graficas_bp
 from routes.upload import upload_bp
 from routes.funcionamiento import funcionamiento_bp
+from routes.simulacion import simulacion_bp
+
+
+from routes.simulacion import simulacion_bp
 
 
 
@@ -37,6 +41,8 @@ app.register_blueprint(export_bp)
 app.register_blueprint(graficas_bp)
 app.register_blueprint(upload_bp)
 app.register_blueprint(funcionamiento_bp)
+app.register_blueprint(simulacion_bp)
+
 
 
 # -------------------------------------------------

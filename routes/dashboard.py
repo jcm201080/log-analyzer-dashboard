@@ -106,3 +106,4 @@ def dashboard_data():
             "usuarios": [],
             "error": str(e)
         }), 500
+

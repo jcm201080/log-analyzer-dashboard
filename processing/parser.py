@@ -52,4 +52,3 @@ if __name__ == "__main__":
     print(f"Líneas descartadas: {stats['discarded_lines']}")
     print(f"Registros detectados: {len(results)}")
     print(results[:5])
-

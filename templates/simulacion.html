@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>🧪 Simulación completada</h2>
+
+<p>Se ha generado un archivo de log simulado:</p>
+
+<code>{{ filename }}</code>
+
+<p>
+Ahora puedes ir a <strong>Subir log</strong> y analizarlo como un archivo real.
+</p>
+
+<a href="{{ url_for('upload.upload_log') }}" class="btn">
+    📤 Ir a Subir log
+</a>
+{% endblock %}

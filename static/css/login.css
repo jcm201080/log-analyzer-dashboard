@@ -1,0 +1,108 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #eaeaea;
+}
+
+/* Contenedor principal */
+.login-container {
+    background-color: #111827;
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+/* Títulos */
+.login-container h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+}
+
+.login-container p {
+    font-size: 0.95rem;
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+}
+
+/* Formulario */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.login-form input {
+    padding: 0.7rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #374151;
+    background-color: #020617;
+    color: #e5e7eb;
+    font-size: 0.95rem;
+}
+
+.login-form input::placeholder {
+    color: #6b7280;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 1px #38bdf8;
+}
+
+/* Botón */
+.login-form button {
+    margin-top: 0.5rem;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #0284c7;
+    color: white;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-form button:hover {
+    background-color: #0369a1;
+    transform: translateY(-1px);
+}
+
+/* Caja demo */
+.demo-box {
+    margin-top: 1.5rem;
+    padding: 0.9rem;
+    background-color: #020617;
+    border: 1px dashed #374151;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #cbd5f5;
+}
+
+.demo-box code {
+    background-color: #020617;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    color: #38bdf8;
+}
+
+/* Error */
+.error {
+    margin-top: 1rem;
+    color: #f87171;
+    font-size: 0.9rem;
+}

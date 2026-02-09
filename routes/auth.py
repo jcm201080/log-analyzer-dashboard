@@ -9,7 +9,9 @@ USERS = {
     "admin": {"password": "admin123", "role": "admin"},
     "analista": {"password": "analista123", "role": "viewer"},
     "jesus": {"password": "1234", "role": "admin"},
-    "jcm": {"password": "1234", "role": "admin"}
+    "jcm": {"password": "1234", "role": "admin"},
+
+     "demo": {"password": "demo123", "role": "viewer"},
 }
 
 

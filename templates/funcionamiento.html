@@ -166,15 +166,17 @@
 <section class="card">
   <h2>🧪 Simulación controlada de ataques</h2>
   <p>
-    El proyecto incluye un archivo de log simulado con eventos de ataque
-    realistas, utilizado para validar el comportamiento del sistema en distintos
-    escenarios sin depender de datos externos ni procesamiento en tiempo real.
+  La simulación no realiza análisis directo sobre los datos generados. 
+  Su función es crear un archivo de log con eventos de ataque realistas,
+  que posteriormente puede ser cargado y analizado mediante el mismo
+  flujo que cualquier archivo real.
   </p>
   <p>
-    Esta simulación permite comprobar la detección de fuerza bruta, la
-    clasificación de gravedad y la correcta visualización de resultados en el
-    dashboard.
+  Este enfoque garantiza que las métricas, clasificaciones y visualizaciones
+  mostradas en el dashboard no dependan de lógica especial para la simulación,
+  sino del propio motor de análisis del sistema.
   </p>
+
 </section>
 
 
