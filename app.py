@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from dotenv import load_dotenv
 import os
 
@@ -10,9 +10,11 @@ from routes.graficas import graficas_bp
 from routes.upload import upload_bp
 from routes.funcionamiento import funcionamiento_bp
 from routes.simulacion import simulacion_bp
+from routes.telemetry import telemetry_bp
 
 
-from routes.simulacion import simulacion_bp
+from processing.access_monitor import init_db, register_visit
+
 
 
 
@@ -28,6 +30,7 @@ load_dotenv()
 # Crear aplicación Flask
 # -------------------------------------------------
 app = Flask(__name__)
+init_db()
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key")
 
 
@@ -42,6 +45,9 @@ app.register_blueprint(graficas_bp)
 app.register_blueprint(upload_bp)
 app.register_blueprint(funcionamiento_bp)
 app.register_blueprint(simulacion_bp)
+app.register_blueprint(telemetry_bp)
+
+
 
 
 
@@ -52,6 +58,12 @@ app.register_blueprint(simulacion_bp)
 def index() -> str:
     """Página de inicio pública."""
     return render_template("index.html")
+
+@app.after_request
+def track_response(response):
+    register_visit(request, response.status_code)
+    return response
+
 
 
 # -------------------------------------------------

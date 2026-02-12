@@ -1,0 +1,105 @@
+{% extends "base.html" %} {% block title %}Hosts Atacantes{% endblock %} {%
+block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/telemetry_public.css') }}"
+{% endblock %} {% block content %}
+
+<h2>Estadísticas de Uso de la Plataforma</h2>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Visitas reales</h3>
+        <p>Total: {{ total_sessions }}</p>
+        <p>Hoy: {{ sessions_today }}</p>
+        <p>Últimos 7 días: {{ sessions_last_7_days }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Páginas vistas</h3>
+        <p>Total: {{ total_visits }}</p>
+        <p>Hoy: {{ today_visits }}</p>
+    </div>
+
+</div>
+
+<small>
+Una visita real se contabiliza al inicio de cada sesión de usuario.
+</small>
+
+
+
+
+<h3>Secciones más visitadas</h3>
+<ul class="top-sections">
+    {% for row in top_endpoints %}
+        <li>{{ row.endpoint }} ({{ row.count }} visitas)</li>
+    {% endfor %}
+</ul>
+
+<h3>Actividad últimos 7 días</h3>
+
+<canvas id="visitsChart"></canvas>
+<canvas id="sessionsChart" style="margin-top:40px;"></canvas>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+// ===== Page Views =====
+const visitLabels = [
+    {% for row in visits_per_day %}
+        "{{ row.day }}",
+    {% endfor %}
+];
+
+const visitData = [
+    {% for row in visits_per_day %}
+        {{ row.count }},
+    {% endfor %}
+];
+
+new Chart(document.getElementById("visitsChart"), {
+    type: 'line',
+    data: {
+        labels: visitLabels,
+        datasets: [{
+            label: 'Páginas vistas por día',
+            data: visitData,
+            borderWidth: 2
+        }]
+    }
+});
+
+// ===== Sessions =====
+const sessionLabels = [
+    {% for row in sessions_per_day %}
+        "{{ row.day }}",
+    {% endfor %}
+];
+
+const sessionData = [
+    {% for row in sessions_per_day %}
+        {{ row.count }},
+    {% endfor %}
+];
+
+new Chart(document.getElementById("sessionsChart"), {
+    type: 'bar',
+    data: {
+        labels: sessionLabels,
+        datasets: [{
+            label: 'Sesiones reales por día',
+            data: sessionData,
+            borderWidth: 2
+        }]
+    }
+});
+
+</script>
+{% endblock %}

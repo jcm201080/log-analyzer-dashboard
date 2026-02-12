@@ -178,6 +178,61 @@
   </p>
 
 </section>
+<section class="card">
+  <h2>📡 Sistema interno de telemetría</h2>
+
+  <p>
+    Además del análisis de archivos de log externos, el sistema incorpora un
+    módulo interno de monitorización de accesos a la propia aplicación web.
+  </p>
+
+  <p>
+    Este módulo registra automáticamente información relevante de cada
+    petición HTTP, incluyendo:
+  </p>
+
+  <ul class="list">
+    <li>Dirección IP de origen</li>
+    <li>Endpoint solicitado</li>
+    <li>Método HTTP utilizado</li>
+    <li>Código de estado devuelto</li>
+    <li>Identificación de inicio de sesión (sesión real)</li>
+  </ul>
+
+  <p>
+    La telemetría se divide en dos niveles:
+  </p>
+
+  <ul class="list">
+    <li>
+      <strong>Vista pública:</strong> métricas agregadas de uso, como
+      sesiones reales, páginas vistas y actividad de los últimos 7 días.
+    </li>
+    <li>
+      <strong>Vista administrativa:</strong> monitorización avanzada que
+      incluye Top IPs, detección de errores 404 y sistema básico de
+      identificación de comportamiento anómalo.
+    </li>
+  </ul>
+
+  <p>
+    El sistema implementa una ventana temporal de análisis de 5 minutos para
+    detectar IPs con actividad excesiva, marcando automáticamente posibles
+    comportamientos sospechosos.
+  </p>
+
+  <p>
+    Este enfoque simula el comportamiento de herramientas de monitorización
+    empleadas en entornos reales de seguridad, reforzando el carácter
+    práctico y profesional del proyecto.
+  </p>
+  <p>
+  La separación entre telemetría interna y análisis de logs externos
+  garantiza una arquitectura desacoplada y mantenible.
+</p>
+
+</section>
+
 
 
 <section class="card">

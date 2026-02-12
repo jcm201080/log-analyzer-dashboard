@@ -54,6 +54,11 @@
           <li><a href="{{ url_for('upload.upload_log') }}">Subir log</a></li>
           <li><a href="{{ url_for('simulacion.simulacion') }}">Simulación</a></li>
           <li><a href="{{ url_for('funcionamiento.funcionamiento') }}">Funcionamiento</a></li>
+          {% if session.get("role") == "admin" %}
+          <li><a href="{{ url_for('telemetry.telemetry_dashboard') }}">Telemetría</a></li>
+          {% endif %}
+          <li><a href="{{ url_for('telemetry.telemetry_public') }}">Estadísticas</a></li>
+
 
           <hr />
 

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Telemetría Admin{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/telemetry_admin.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<h2>Panel de Telemetría - Administración</h2>
+
+{% if possible_scan %}
+<div class="alert-danger">
+    🚨 Posible comportamiento sospechoso detectado (actividad elevada en los últimos 5 minutos)
+</div>
+{% endif %}
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <h3>Sesiones reales</h3>
+        <p>Total: {{ total_sessions }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Páginas vistas</h3>
+        <p>Total: {{ total_visits }}</p>
+        <p>Hoy: {{ today_visits }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Errores 404</h3>
+        <p>Total: {{ total_404 }}</p>
+    </div>
+
+</div>
+
+{% if suspicious_ips %}
+<h3>IPs con actividad elevada (5 min)</h3>
+<ul class="top-list">
+    {% for row in suspicious_ips %}
+        <li>{{ row.ip }} ({{ row.count }} accesos)</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h3>Top IPs</h3>
+<ul class="top-list">
+    {% for row in top_ips %}
+        <li>{{ row.ip }} ({{ row.count }} accesos)</li>
+    {% endfor %}
+</ul>
+<h3>Top IPs (visual)</h3>
+<canvas id="ipsChart"></canvas>
+
+
+<h3>Top Endpoints</h3>
+<ul class="top-list">
+    {% for row in top_endpoints %}
+        <li>{{ row.endpoint }} ({{ row.count }} accesos)</li>
+    {% endfor %}
+</ul>
+
+<h3>Errores 404 últimos 7 días</h3>
+<canvas id="errorsChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ipLabels = [
+    {% for row in top_ips %}
+        "{{ row.ip }}",
+    {% endfor %}
+];
+
+const ipData = [
+    {% for row in top_ips %}
+        {{ row.count }},
+    {% endfor %}
+];
+
+new Chart(document.getElementById("ipsChart"), {
+    type: 'bar',
+    data: {
+        labels: ipLabels,
+        datasets: [{
+            label: 'Accesos por IP',
+            data: ipData,
+            borderWidth: 2
+        }]
+    },
+    options: {
+        indexAxis: 'y'
+    }
+});
+
+const errorLabels = [
+    {% for row in errors_404 %}
+        "{{ row.day }}",
+    {% endfor %}
+];
+
+const errorData = [
+    {% for row in errors_404 %}
+        {{ row.count }},
+    {% endfor %}
+];
+
+new Chart(document.getElementById("errorsChart"), {
+    type: 'line',
+    data: {
+        labels: errorLabels,
+        datasets: [{
+            label: 'Errores 404 por día',
+            data: errorData,
+            borderWidth: 2
+        }]
+    }
+});
+</script>
+
+{% endblock %}

@@ -16,3 +16,4 @@ data/*.json
 # Variables de entorno
 .env
 
+data/app_telemetry.db

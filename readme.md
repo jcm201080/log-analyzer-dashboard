@@ -18,7 +18,7 @@ El sistema permite identificar automáticamente los orígenes más agresivos y g
 
 ## Fecha
 26/12/2025
-# -------------DASBOARD--------------
+# DASBOARD
 
 ## Dashboard de Seguridad
 
@@ -61,7 +61,7 @@ Estas ayudas explican, por ejemplo, la diferencia entre el número total de lín
 - La visualización y el análisis se mantienen desacoplados para mejorar mantenibilidad y escalabilidad.
 
 
-# -------------HOST--------------
+# HOST
 
 ## Vista de Hosts Atacantes
 
@@ -91,7 +91,7 @@ La vista de Hosts incluye un filtro temporal a nivel de interfaz, preparado para
 Asimismo, se contempla la exportación de listados de IPs sospechosas en formatos CSV y JSON, pensados para su integración con sistemas de seguridad externos como firewalls o IDS/IPS.
 
 
-# -------------GRÁFICAS--------------
+# GRÁFICAS
 
 ## Gráficas de Seguridad
 
@@ -106,7 +106,7 @@ Las gráficas disponibles incluyen:
 
 La separación entre dashboard y gráficas permite mantener una vista principal clara y delegar el análisis visual detallado en una sección específica.
 
-# -------------EXPORTACIÓN--------------
+# EXPORTACIÓN
 ## Exportación de Inteligencia
 
 El sistema incorpora una sección de exportación orientada a la generación de inteligencia accionable a partir de los resultados del análisis.
@@ -121,7 +121,7 @@ Se contemplan formatos de exportación como CSV y JSON, pensados para su uso en 
 
 La exportación completa se plantea como una fase posterior del proyecto, priorizando en esta etapa la estabilidad, claridad y correcta documentación del sistema.
 
-# -------------SUBIR LOG--------------
+# SUBIR LOG
 ## Carga de archivos de log
 
 El sistema permite cargar archivos de log directamente desde la interfaz web para su análisis automático.
@@ -161,13 +161,15 @@ El proyecto se organiza siguiendo una arquitectura modular, separando claramente
 │   ├── graficas.py
 │   ├── export.py
 │   ├── upload.py
-│   └── funcionamiento.py
+│   ├── funcionamiento.py
+│   └── telemetry.py
 ├── processing/
 │   ├── parser.py
 │   ├── analyzer.py
 │   ├── geoip.py
 │   ├── loader.py
-│   └── log_type_detector.py
+│   ├── log_type_detector.py
+│   └── access_monitor.py
 ├── templates/
 │   ├── base.html
 │   ├── dashboard.html
@@ -176,15 +178,22 @@ El proyecto se organiza siguiendo una arquitectura modular, separando claramente
 │   ├── graficas.html
 │   ├── export.html
 │   ├── upload.html
-│   └── funcionamiento.html
+│   ├── funcionamiento.html
+│   ├── telemetry.html
+│   └── telemetry_public.html
 ├── static/
 │   ├── css/
+│   │   ├── funcionamiento.css
+│   │   ├── telemetry_public.css
+│   │   └── telemetry_admin.css
 │   ├── js/
 │   └── img/
 ├── data/
 │   ├── logs de prueba
-│   └── resultados intermedios
+│   ├── resultados intermedios
+│   └── app_telemetry.db
 └── README.md
+
 ## Descripción de los componentes principales
 
 ### app.py
@@ -204,3 +213,55 @@ Recursos estáticos de la aplicación, incluyendo hojas de estilo CSS, scripts J
 
 ### data/
 Almacena archivos de log de prueba, datasets utilizados durante el desarrollo y resultados intermedios del análisis.
+
+
+# TELEMETRÍA INTERNA
+
+## Sistema Interno de Monitorización de Accesos
+
+El proyecto incorpora un módulo independiente de telemetría encargado de registrar y analizar los accesos a la propia aplicación web.
+
+Este sistema funciona de forma paralela al análisis de logs externos, manteniendo una arquitectura desacoplada y modular.
+
+### Información registrada
+
+Cada petición HTTP relevante genera un registro que incluye:
+
+- Dirección IP de origen.
+- Endpoint solicitado.
+- Método HTTP.
+- Código de estado devuelto.
+- Identificación de inicio de sesión (sesión real).
+- Marca temporal del evento.
+
+### Niveles de visualización
+
+El módulo de telemetría se divide en dos vistas diferenciadas:
+
+**Vista pública**
+- Métricas agregadas de uso.
+- Número de sesiones reales.
+- Páginas vistas.
+- Actividad de los últimos 7 días.
+
+**Vista administrativa**
+- Top IPs más activas.
+- Top endpoints más solicitados.
+- Monitorización de errores 404.
+- Detección básica de comportamiento anómalo mediante ventana temporal de 5 minutos.
+
+### Detección de comportamiento sospechoso
+
+El sistema implementa una regla de análisis que identifica direcciones IP con actividad excesiva en un intervalo de tiempo reducido.
+
+Si una IP supera un umbral predefinido de peticiones en 5 minutos, el panel administrativo genera una alerta visual de posible escaneo o comportamiento automatizado.
+
+### Separación arquitectónica
+
+La telemetría interna:
+
+- No interfiere con el motor de análisis de logs.
+- Utiliza una base de datos independiente (`app_telemetry.db`).
+- Mantiene separación entre análisis externo y monitorización interna.
+
+Este enfoque simula el comportamiento de herramientas de monitorización empleadas en entornos reales de seguridad.
