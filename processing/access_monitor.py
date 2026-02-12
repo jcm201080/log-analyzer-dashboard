@@ -44,7 +44,17 @@ def register_visit(req, status_code=200):
         if "__debugger__" in req.path:
             return
 
-        # 👇 NUEVO: contar solo primera visita de la sesión
+        # ==========================
+        # Obtener IP real (proxy)
+        # ==========================
+        ip = req.headers.get("X-Forwarded-For", req.remote_addr)
+
+        if ip and "," in ip:
+            ip = ip.split(",")[0].strip()
+
+        # ==========================
+        # Contar solo primera visita de sesión
+        # ==========================
         is_new_session = False
 
         if not session.get("visit_registered"):
@@ -59,7 +69,7 @@ def register_visit(req, status_code=200):
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (
             datetime.utcnow().isoformat(),
-            req.remote_addr,
+            ip,
             req.headers.get("User-Agent"),
             req.path,
             req.method,
@@ -72,4 +82,5 @@ def register_visit(req, status_code=200):
 
     except Exception:
         pass
+
 
