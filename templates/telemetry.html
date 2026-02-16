@@ -10,17 +10,22 @@
 {% block content %}
 
 <h2>Panel de Telemetría - Administración</h2>
+<p class="subtitle">
+Monitorización interna de accesos a la plataforma.
+Excluye tráfico técnico, API y bots básicos.
+</p>
 
 {% if possible_scan %}
 <div class="alert-danger">
-    🚨 Posible comportamiento sospechoso detectado (actividad elevada en los últimos 5 minutos)
+    🚨 Actividad anómala detectada (umbral superado en ventana de 5 minutos)
+
 </div>
 {% endif %}
 
 <div class="stats-grid">
 
     <div class="stat-card">
-        <h3>Sesiones reales</h3>
+        <h3>Sesiones iniciadas (navegador)</h3>
         <p>Total: {{ total_sessions }}</p>
     </div>
 
@@ -46,7 +51,7 @@
 </ul>
 {% endif %}
 
-<h3>Top IPs</h3>
+<h3><h3>IPs más activas</h3>
 <ul class="top-list">
     {% for row in top_ips %}
         <li>{{ row.ip }} ({{ row.count }} accesos)</li>
@@ -63,7 +68,7 @@
     {% endfor %}
 </ul>
 
-<h3>Errores 404 últimos 7 días</h3>
+<h3>Errores 404 (últimos 7 días)</h3>
 <canvas id="errorsChart"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

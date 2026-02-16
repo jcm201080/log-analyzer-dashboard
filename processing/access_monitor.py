@@ -51,6 +51,24 @@ def register_visit(req, status_code=200):
 
         if ip and "," in ip:
             ip = ip.split(",")[0].strip()
+        
+        # Ignorar API
+        if req.path.startswith("/api"):
+            return
+
+        # Ignorar telemetría interna
+        if req.path.startswith("/telemetry"):
+            return
+
+        # Ignorar tráfico local
+        if ip in ["127.0.0.1", "::1"]:
+            return
+
+        # Filtrar bots básicos
+        ua = req.headers.get("User-Agent", "").lower()
+        if any(k in ua for k in ["bot", "crawl", "spider", "scanner", "curl", "python"]):
+            return
+    
 
         # ==========================
         # Contar solo primera visita de sesión

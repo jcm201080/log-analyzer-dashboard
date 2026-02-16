@@ -10,10 +10,10 @@ block head %} {{ super() }}
 <div class="stats-grid">
 
     <div class="stat-card">
-        <h3>Visitas reales</h3>
-        <p>Total: {{ total_sessions }}</p>
-        <p>Hoy: {{ sessions_today }}</p>
-        <p>Últimos 7 días: {{ sessions_last_7_days }}</p>
+        <h3>Sesiones iniciadas</h3>
+        <p><strong>Total histórico:</strong> {{ total_sessions }}</p>
+        <p><strong>Hoy:</strong> {{ sessions_today }}</p>
+        <p><strong>Últimos 7 días:</strong> {{ sessions_last_7_days }}</p>
     </div>
 
     <div class="stat-card">
@@ -25,8 +25,10 @@ block head %} {{ super() }}
 </div>
 
 <small>
-Una visita real se contabiliza al inicio de cada sesión de usuario.
+Una sesión se contabiliza cuando un usuario inicia una nueva sesión en el navegador.
+Las métricas excluyen tráfico técnico, llamadas API y bots básicos.
 </small>
+
 
 
 
@@ -94,7 +96,7 @@ new Chart(document.getElementById("sessionsChart"), {
     data: {
         labels: sessionLabels,
         datasets: [{
-            label: 'Sesiones reales por día',
+            label: 'Sesiones iniciadas por día',
             data: sessionData,
             borderWidth: 2
         }]
